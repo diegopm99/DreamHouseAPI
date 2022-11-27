@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,7 +46,7 @@ public class Usuario implements Serializable {
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Cliente cliente;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinTable(
 			name="usuario_rol",
 			joinColumns = @JoinColumn(

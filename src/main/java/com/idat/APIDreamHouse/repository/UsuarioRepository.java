@@ -8,5 +8,5 @@ import com.idat.APIDreamHouse.model.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-	
+	public Usuario findByCorreo(String correo);
 }

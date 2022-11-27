@@ -1,7 +1,5 @@
 package com.idat.APIDreamHouse.dto;
 
-
-
 import java.io.Serializable;
 
 import lombok.Data;
@@ -18,5 +16,5 @@ public class UsuarioDTO implements Serializable {
 	private String telefono;
 	private String correo;
 	private String contrasenia;
-	
+
 }

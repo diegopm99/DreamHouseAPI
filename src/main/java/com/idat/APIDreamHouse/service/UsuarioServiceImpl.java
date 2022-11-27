@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.idat.APIDreamHouse.dto.UsuarioDTO;
@@ -63,7 +64,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuario.setGenero(usuarioDto.getGenero());
 		usuario.setTelefono(usuarioDto.getTelefono());
 		usuario.setCorreo(usuarioDto.getCorreo());
-		usuario.setContrasenia(usuarioDto.getContrasenia());
+		usuario.setContrasenia(new BCryptPasswordEncoder().encode(usuarioDto.getContrasenia()));
 		repository.save(usuario);
 	}
 

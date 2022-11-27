@@ -1,0 +1,49 @@
+package com.idat.APIDreamHouse.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.idat.APIDreamHouse.dto.JwtRequest;
+import com.idat.APIDreamHouse.dto.JwtResponse;
+import com.idat.APIDreamHouse.security.TokenUtil;
+import com.idat.APIDreamHouse.security.UserDetailService;
+
+@RestController
+public class LoginController {
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private TokenUtil util;
+
+	@Autowired
+	private UserDetailService service;
+
+	@RequestMapping(path = "/authenticate", method = RequestMethod.POST)
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest request) throws Exception {
+		authenticate(request.getUsername(), request.getPassword());
+		UserDetails user = service.loadUserByUsername(request.getUsername());
+		return ResponseEntity.ok(new JwtResponse(util.generateToken(user.getUsername())));
+	}
+
+	private void authenticate(String username, String password) throws Exception {
+		try {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+		} catch (DisabledException e) {
+			throw new Exception("Usuario inactivo", e);
+		} catch (BadCredentialsException e) {
+			throw new Exception("Credenciales inválidas ", e);
+		}
+	}
+
+}
