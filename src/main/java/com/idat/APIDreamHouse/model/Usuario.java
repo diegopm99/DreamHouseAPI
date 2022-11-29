@@ -18,8 +18,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 
 @Data
@@ -42,11 +40,9 @@ public class Usuario implements Serializable {
 	private String correo;
 	private String contrasenia;
 
-	@JsonIgnore
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Trabajador trabajador;
 
-	@JsonIgnore
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Cliente cliente;
 

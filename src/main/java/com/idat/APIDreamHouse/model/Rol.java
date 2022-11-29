@@ -1,5 +1,6 @@
 package com.idat.APIDreamHouse.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,9 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "rol")
-public class Rol {
+public class Rol implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
