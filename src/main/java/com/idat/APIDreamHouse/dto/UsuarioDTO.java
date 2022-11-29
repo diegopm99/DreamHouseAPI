@@ -1,6 +1,10 @@
 package com.idat.APIDreamHouse.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.idat.APIDreamHouse.model.Rol;
 
 import lombok.Data;
 
@@ -16,5 +20,5 @@ public class UsuarioDTO implements Serializable {
 	private String telefono;
 	private String correo;
 	private String contrasenia;
-
+	private List<Rol> roles = new ArrayList<>();
 }

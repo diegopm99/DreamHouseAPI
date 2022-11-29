@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.idat.APIDreamHouse.dto.UsuarioDTO;
 import com.idat.APIDreamHouse.model.Rol;
 import com.idat.APIDreamHouse.model.Usuario;
 import com.idat.APIDreamHouse.repository.UsuarioRepository;
@@ -45,14 +46,29 @@ public class UserDetailService implements UserDetailsService {
 		return listaAuthorities;
 	}
 
-	public Usuario obtenerUsuarioLogueado() {
+	public UsuarioDTO obtenerUsuarioLogueado() {
         Usuario usuario;
         Authentication auth = SecurityContextHolder
                 .getContext()
                 .getAuthentication();
         UserDetails userDetail = (UserDetails) auth.getPrincipal();
         usuario = repository.findByCorreo(userDetail.getUsername());
-        return usuario;
+        UsuarioDTO usuarioDto = new UsuarioDTO();
+        List<Rol> listaRoles = null;
+        usuarioDto.setIdUsuario(usuario.getIdUsuario());
+		usuarioDto.setNombres(usuario.getNombres());
+		usuarioDto.setApellidos(usuario.getApellidos());
+		usuarioDto.setDni(usuario.getDni());
+		usuarioDto.setGenero(usuario.getGenero());
+		usuarioDto.setTelefono(usuario.getTelefono());
+		usuarioDto.setCorreo(usuario.getCorreo());
+		usuarioDto.setContrasenia(usuario.getContrasenia());
+		listaRoles = new ArrayList<>();
+		for (Rol rol : usuario.getRoles()) {
+			listaRoles.add(rol);
+		}
+		usuarioDto.setRoles(listaRoles);
+        return usuarioDto;
     }
 	
 }

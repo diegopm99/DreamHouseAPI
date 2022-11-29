@@ -12,4 +12,6 @@ public interface UsuarioService {
 	public void registrar(UsuarioDTO usuarioDto);
 	public void actualizar(UsuarioDTO usuarioDto);
 	public void eliminar(Long id);
+	public UsuarioDTO obtenerPorEmail(String email);
 }
+

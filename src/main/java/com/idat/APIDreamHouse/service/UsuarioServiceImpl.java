@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.idat.APIDreamHouse.dto.UsuarioDTO;
+import com.idat.APIDreamHouse.model.Rol;
 import com.idat.APIDreamHouse.model.Usuario;
 import com.idat.APIDreamHouse.repository.UsuarioRepository;
 
@@ -16,11 +17,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private UsuarioRepository repository;
-	
+
 	@Override
 	public List<UsuarioDTO> listar() {
 		List<UsuarioDTO> listaDto = new ArrayList<>();
 		UsuarioDTO usuarioDto = null;
+		List<Rol> listaRoles = null;
 		for (Usuario usuario : repository.findAll()) {
 			usuarioDto = new UsuarioDTO();
 			usuarioDto.setIdUsuario(usuario.getIdUsuario());
@@ -31,6 +33,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 			usuarioDto.setTelefono(usuario.getTelefono());
 			usuarioDto.setCorreo(usuario.getCorreo());
 			usuarioDto.setContrasenia(usuario.getContrasenia());
+			listaRoles = new ArrayList<>();
+			for (Rol rol : usuario.getRoles()) {
+				listaRoles.add(rol);
+			}
+			usuarioDto.setRoles(listaRoles);
 			listaDto.add(usuarioDto);
 		}
 		return listaDto;
@@ -40,17 +47,22 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public UsuarioDTO obtener(Long id) {
 		Usuario usuario = repository.findById(id).orElse(null);
 		UsuarioDTO usuarioDto = null;
-		
-		if(usuario != null) {
-		usuarioDto = new UsuarioDTO();
-		usuarioDto.setIdUsuario(usuario.getIdUsuario());
-		usuarioDto.setNombres(usuario.getNombres());
-		usuarioDto.setApellidos(usuario.getApellidos());
-		usuarioDto.setDni(usuario.getDni());
-		usuarioDto.setGenero(usuario.getGenero());
-		usuarioDto.setTelefono(usuario.getTelefono());
-		usuarioDto.setCorreo(usuario.getCorreo());
-		usuarioDto.setContrasenia(usuario.getContrasenia());
+		List<Rol> listaRoles = null;
+		if (usuario != null) {
+			usuarioDto = new UsuarioDTO();
+			usuarioDto.setIdUsuario(usuario.getIdUsuario());
+			usuarioDto.setNombres(usuario.getNombres());
+			usuarioDto.setApellidos(usuario.getApellidos());
+			usuarioDto.setDni(usuario.getDni());
+			usuarioDto.setGenero(usuario.getGenero());
+			usuarioDto.setTelefono(usuario.getTelefono());
+			usuarioDto.setCorreo(usuario.getCorreo());
+			usuarioDto.setContrasenia(usuario.getContrasenia());
+			listaRoles = new ArrayList<>();
+			for (Rol rol : usuario.getRoles()) {
+				listaRoles.add(rol);
+			}
+			usuarioDto.setRoles(listaRoles);
 		}
 		return usuarioDto;
 	}
@@ -85,6 +97,30 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public void eliminar(Long id) {
 		repository.deleteById(id);
+	}
+
+	@Override
+	public UsuarioDTO obtenerPorEmail(String email) {
+		Usuario usuario = repository.findByCorreo(email);
+		UsuarioDTO usuarioDto = null;
+		List<Rol> listaRoles = null;
+		if (usuario != null) {
+			usuarioDto = new UsuarioDTO();
+			usuarioDto.setIdUsuario(usuario.getIdUsuario());
+			usuarioDto.setNombres(usuario.getNombres());
+			usuarioDto.setApellidos(usuario.getApellidos());
+			usuarioDto.setDni(usuario.getDni());
+			usuarioDto.setGenero(usuario.getGenero());
+			usuarioDto.setTelefono(usuario.getTelefono());
+			usuarioDto.setCorreo(usuario.getCorreo());
+			usuarioDto.setContrasenia(usuario.getContrasenia());
+			listaRoles = new ArrayList<>();
+			for (Rol rol : usuario.getRoles()) {
+				listaRoles.add(rol);
+			}
+			usuarioDto.setRoles(listaRoles);
+		}
+		return usuarioDto;
 	}
 
 }

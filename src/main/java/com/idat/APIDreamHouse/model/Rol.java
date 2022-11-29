@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -26,6 +28,7 @@ public class Rol {
 
 	private String nombre;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "roles", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Usuario> usuarios = new ArrayList<>();
 }
