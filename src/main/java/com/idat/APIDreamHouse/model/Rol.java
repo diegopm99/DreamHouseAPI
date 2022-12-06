@@ -20,7 +20,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "rol")
-public class Rol implements Serializable{
+public class Rol implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,4 +34,5 @@ public class Rol implements Serializable{
 	@JsonIgnore
 	@ManyToMany(mappedBy = "roles", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Usuario> usuarios = new ArrayList<>();
+
 }

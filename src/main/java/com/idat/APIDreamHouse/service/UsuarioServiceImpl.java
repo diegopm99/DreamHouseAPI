@@ -1,6 +1,7 @@
 package com.idat.APIDreamHouse.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.idat.APIDreamHouse.dto.UsuarioDTO;
 import com.idat.APIDreamHouse.model.Rol;
 import com.idat.APIDreamHouse.model.Usuario;
+import com.idat.APIDreamHouse.repository.RolRepository;
 import com.idat.APIDreamHouse.repository.UsuarioRepository;
 
 @Service
@@ -17,6 +19,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private UsuarioRepository repository;
+	
+	@Autowired
+	private RolRepository rolRepository;
 
 	@Override
 	public List<UsuarioDTO> listar() {
@@ -70,6 +75,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public void registrar(UsuarioDTO usuarioDto) {
 		Usuario usuario = new Usuario();
+		Rol rol = rolRepository.findByNombre("ROLE_USER");
 		usuario.setNombres(usuarioDto.getNombres());
 		usuario.setApellidos(usuarioDto.getApellidos());
 		usuario.setDni(usuarioDto.getDni());
@@ -77,6 +83,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuario.setTelefono(usuarioDto.getTelefono());
 		usuario.setCorreo(usuarioDto.getCorreo());
 		usuario.setContrasenia(new BCryptPasswordEncoder().encode(usuarioDto.getContrasenia()));
+		usuario.setRoles(new ArrayList<>(Arrays.asList(rol)));
 		repository.save(usuario);
 	}
 
