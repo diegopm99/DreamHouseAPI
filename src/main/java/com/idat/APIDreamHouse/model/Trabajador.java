@@ -2,6 +2,7 @@ package com.idat.APIDreamHouse.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,6 +29,9 @@ public class Trabajador {
 	private Boolean estado;
 	
 	@OneToOne
-	@JoinColumn(name = "id_usuario")
+	@JoinColumn(name = "id_usuario",
+				nullable = false,
+				foreignKey = @ForeignKey(name = "FK_trabajador_id_usuario")
+	)
 	private Usuario usuario;
 }

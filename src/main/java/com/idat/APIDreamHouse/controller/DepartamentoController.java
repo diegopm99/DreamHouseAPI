@@ -11,41 +11,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.idat.APIDreamHouse.dto.UsuarioDTO;
-import com.idat.APIDreamHouse.service.UsuarioService;
+import com.idat.APIDreamHouse.dto.DepartamentoDTO;
+import com.idat.APIDreamHouse.service.DepartamentoService;
 
 @RestController
-@RequestMapping("/usuario")
-public class UsuarioController {
+@RequestMapping("/departamento")
+public class DepartamentoController {
 
 	@Autowired
-	private UsuarioService service;
+	private DepartamentoService service;
 	
 	@RequestMapping(path = "/listar", method = RequestMethod.GET)
-	public ResponseEntity<List<UsuarioDTO>> listar() {
-		return new ResponseEntity<List<UsuarioDTO>>(service.listar(), HttpStatus.OK);
+	public ResponseEntity<List<DepartamentoDTO>> listar() {
+		return new ResponseEntity<List<DepartamentoDTO>>(service.listar(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(path = "/obtener/{id}", method = RequestMethod.GET)
-	public ResponseEntity<UsuarioDTO> obtener(@PathVariable Long id) {
-		UsuarioDTO usuarioDto = service.obtener(id);
-		if (usuarioDto != null) {
-			return new ResponseEntity<UsuarioDTO>(usuarioDto, HttpStatus.OK);
+	public ResponseEntity<DepartamentoDTO> obtener(@PathVariable Long id) {
+		DepartamentoDTO departamentoDto = service.obtener(id);
+		if (departamentoDto != null) {
+			return new ResponseEntity<DepartamentoDTO>(departamentoDto, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<UsuarioDTO>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<DepartamentoDTO>(HttpStatus.NOT_FOUND);
 		}
 	}
 
 	@RequestMapping(path = "/registrar", method = RequestMethod.POST)
-	public ResponseEntity<Void> registrar(@RequestBody UsuarioDTO usuarioDto) {
-		service.registrar(usuarioDto);
+	public ResponseEntity<Void> registrar(@RequestBody DepartamentoDTO departamentoDto) {
+		service.registrar(departamentoDto);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
 	@RequestMapping(path = "/editar", method = RequestMethod.PUT)
-	public ResponseEntity<Void> editar(@RequestBody UsuarioDTO usuarioDto) {
-		if (service.obtener(usuarioDto.getId()) != null) {
-			service.actualizar(usuarioDto);
+	public ResponseEntity<Void> editar(@RequestBody DepartamentoDTO departamentoDto) {
+		if (service.obtener(departamentoDto.getId()) != null) {
+			service.actualizar(departamentoDto);
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);

@@ -11,8 +11,8 @@ import lombok.Data;
 @Data
 public class UsuarioDTO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private Long idUsuario;
+	private static final long serialVersionUID = 3603879817458333179L;
+	private Long id;
 	private String nombres;
 	private String apellidos;
 	private String dni;

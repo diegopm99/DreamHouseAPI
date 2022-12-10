@@ -25,7 +25,7 @@ import lombok.Data;
 @Table(name = "usuario")
 public class Usuario implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7822966245086639524L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,12 +52,12 @@ public class Usuario implements Serializable {
 			joinColumns = @JoinColumn(
 					name="id_usuario",
 					nullable = false,
-					foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key(id_usuario) references usuario(id_usuario)")
+					foreignKey = @ForeignKey(name="FK_usuario_rol_id_usuario")
 			),
 			inverseJoinColumns = @JoinColumn(
 					name="id_rol",
 					nullable = false,
-					foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key(id_rol) references rol(id_rol)")
+					foreignKey = @ForeignKey(name="FK_usuario_rol_id_rol")
 			)
 	)
 	private List<Rol> roles = new ArrayList<>();

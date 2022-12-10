@@ -55,7 +55,7 @@ public class UserDetailService implements UserDetailsService {
         usuario = repository.findByCorreo(userDetail.getUsername());
         UsuarioDTO usuarioDto = new UsuarioDTO();
         List<Rol> listaRoles = null;
-        usuarioDto.setIdUsuario(usuario.getIdUsuario());
+        usuarioDto.setId(usuario.getIdUsuario());
 		usuarioDto.setNombres(usuario.getNombres());
 		usuarioDto.setApellidos(usuario.getApellidos());
 		usuarioDto.setDni(usuario.getDni());

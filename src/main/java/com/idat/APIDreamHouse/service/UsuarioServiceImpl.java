@@ -30,7 +30,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		List<Rol> listaRoles = null;
 		for (Usuario usuario : repository.findAll()) {
 			usuarioDto = new UsuarioDTO();
-			usuarioDto.setIdUsuario(usuario.getIdUsuario());
+			usuarioDto.setId(usuario.getIdUsuario());
 			usuarioDto.setNombres(usuario.getNombres());
 			usuarioDto.setApellidos(usuario.getApellidos());
 			usuarioDto.setDni(usuario.getDni());
@@ -55,7 +55,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		List<Rol> listaRoles = null;
 		if (usuario != null) {
 			usuarioDto = new UsuarioDTO();
-			usuarioDto.setIdUsuario(usuario.getIdUsuario());
+			usuarioDto.setId(usuario.getIdUsuario());
 			usuarioDto.setNombres(usuario.getNombres());
 			usuarioDto.setApellidos(usuario.getApellidos());
 			usuarioDto.setDni(usuario.getDni());
@@ -90,7 +90,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public void actualizar(UsuarioDTO usuarioDto) {
 		Usuario usuario = new Usuario();
-		usuario.setIdUsuario(usuarioDto.getIdUsuario());
+		usuario.setIdUsuario(usuarioDto.getId());
 		usuario.setNombres(usuarioDto.getNombres());
 		usuario.setApellidos(usuarioDto.getApellidos());
 		usuario.setDni(usuarioDto.getDni());
@@ -113,7 +113,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		List<Rol> listaRoles = null;
 		if (usuario != null) {
 			usuarioDto = new UsuarioDTO();
-			usuarioDto.setIdUsuario(usuario.getIdUsuario());
+			usuarioDto.setId(usuario.getIdUsuario());
 			usuarioDto.setNombres(usuario.getNombres());
 			usuarioDto.setApellidos(usuario.getApellidos());
 			usuarioDto.setDni(usuario.getDni());
