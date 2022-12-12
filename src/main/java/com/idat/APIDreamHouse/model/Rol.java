@@ -22,7 +22,7 @@ import lombok.Data;
 @Table(name = "rol")
 public class Rol implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5705884446685937822L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

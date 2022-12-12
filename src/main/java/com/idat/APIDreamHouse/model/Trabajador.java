@@ -1,5 +1,6 @@
 package com.idat.APIDreamHouse.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -28,7 +29,7 @@ public class Trabajador {
 	
 	private Boolean estado;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinColumn(name = "id_usuario",
 				nullable = false,
 				foreignKey = @ForeignKey(name = "FK_trabajador_id_usuario")
