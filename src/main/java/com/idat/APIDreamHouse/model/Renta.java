@@ -34,6 +34,8 @@ public class Renta {
 	@DateTimeFormat(pattern="dd-MM-yyyy")
 	private Date fecha;
 	
+	private Double monto;
+	
 	private String estado;
 	
 	@Temporal(TemporalType.DATE)

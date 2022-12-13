@@ -27,7 +27,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public List<UsuarioDTO> listar() {
 		List<UsuarioDTO> listaDto = new ArrayList<>();
 		UsuarioDTO usuarioDto = null;
-		List<Rol> listaRoles = null;
+		//List<Rol> listaRoles = null;
 		for (Usuario usuario : repository.findAll()) {
 			usuarioDto = new UsuarioDTO();
 			usuarioDto.setId(usuario.getIdUsuario());
@@ -37,12 +37,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 			usuarioDto.setGenero(usuario.getGenero());
 			usuarioDto.setTelefono(usuario.getTelefono());
 			usuarioDto.setCorreo(usuario.getCorreo());
-			usuarioDto.setContrasenia(usuario.getContrasenia());
-			listaRoles = new ArrayList<>();
+			usuarioDto.setContrasenna(usuario.getContrasenia());
+			/*listaRoles = new ArrayList<>();
 			for (Rol rol : usuario.getRoles()) {
 				listaRoles.add(rol);
 			}
-			usuarioDto.setRoles(listaRoles);
+			usuarioDto.setRoles(listaRoles);*/
 			listaDto.add(usuarioDto);
 		}
 		return listaDto;
@@ -52,7 +52,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public UsuarioDTO obtener(Long id) {
 		Usuario usuario = repository.findById(id).orElse(null);
 		UsuarioDTO usuarioDto = null;
-		List<Rol> listaRoles = null;
+		//List<Rol> listaRoles = null;
 		if (usuario != null) {
 			usuarioDto = new UsuarioDTO();
 			usuarioDto.setId(usuario.getIdUsuario());
@@ -62,12 +62,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 			usuarioDto.setGenero(usuario.getGenero());
 			usuarioDto.setTelefono(usuario.getTelefono());
 			usuarioDto.setCorreo(usuario.getCorreo());
-			usuarioDto.setContrasenia(usuario.getContrasenia());
-			listaRoles = new ArrayList<>();
+			usuarioDto.setContrasenna(usuario.getContrasenia());
+			/*listaRoles = new ArrayList<>();
 			for (Rol rol : usuario.getRoles()) {
 				listaRoles.add(rol);
 			}
-			usuarioDto.setRoles(listaRoles);
+			usuarioDto.setRoles(listaRoles);*/
 		}
 		return usuarioDto;
 	}
@@ -82,13 +82,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuario.setGenero(usuarioDto.getGenero());
 		usuario.setTelefono(usuarioDto.getTelefono());
 		usuario.setCorreo(usuarioDto.getCorreo());
-		usuario.setContrasenia(new BCryptPasswordEncoder().encode(usuarioDto.getContrasenia()));
+		usuario.setContrasenia(new BCryptPasswordEncoder().encode(usuarioDto.getContrasenna()));
 		usuario.setRoles(new ArrayList<>(Arrays.asList(rol)));
 		repository.save(usuario);
 	}
 
 	@Override
 	public void actualizar(UsuarioDTO usuarioDto) {
+		Usuario usuarioBd = repository.findById(usuarioDto.getId()).orElse(null);
 		Usuario usuario = new Usuario();
 		usuario.setIdUsuario(usuarioDto.getId());
 		usuario.setNombres(usuarioDto.getNombres());
@@ -97,7 +98,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuario.setGenero(usuarioDto.getGenero());
 		usuario.setTelefono(usuarioDto.getTelefono());
 		usuario.setCorreo(usuarioDto.getCorreo());
-		usuario.setContrasenia(usuarioDto.getContrasenia());
+		if(usuarioBd.getContrasenia().equals(usuarioDto.getContrasenna())) {
+			usuario.setContrasenia(usuarioBd.getContrasenia());
+		} else {
+			usuario.setContrasenia(new BCryptPasswordEncoder().encode(usuarioDto.getContrasenna()));
+		}
+		usuario.setRoles(usuarioBd.getRoles());
 		repository.saveAndFlush(usuario);
 	}
 
@@ -110,7 +116,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public UsuarioDTO obtenerPorEmail(String email) {
 		Usuario usuario = repository.findByCorreo(email);
 		UsuarioDTO usuarioDto = null;
-		List<Rol> listaRoles = null;
+		//List<Rol> listaRoles = null;
 		if (usuario != null) {
 			usuarioDto = new UsuarioDTO();
 			usuarioDto.setId(usuario.getIdUsuario());
@@ -120,12 +126,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 			usuarioDto.setGenero(usuario.getGenero());
 			usuarioDto.setTelefono(usuario.getTelefono());
 			usuarioDto.setCorreo(usuario.getCorreo());
-			usuarioDto.setContrasenia(usuario.getContrasenia());
-			listaRoles = new ArrayList<>();
+			usuarioDto.setContrasenna(usuario.getContrasenia());
+			/*listaRoles = new ArrayList<>();
 			for (Rol rol : usuario.getRoles()) {
 				listaRoles.add(rol);
 			}
-			usuarioDto.setRoles(listaRoles);
+			usuarioDto.setRoles(listaRoles);*/
 		}
 		return usuarioDto;
 	}

@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.idat.APIDreamHouse.dto.ContratoDTO;
+import com.idat.APIDreamHouse.dto.DepartamentoDTO;
 import com.idat.APIDreamHouse.dto.RentaDTO;
 import com.idat.APIDreamHouse.model.Contrato;
 import com.idat.APIDreamHouse.service.ContratoService;
+import com.idat.APIDreamHouse.service.DepartamentoService;
 import com.idat.APIDreamHouse.service.RentaService;
 
 @RestController
@@ -28,6 +30,9 @@ public class ContratoController {
 
 	@Autowired
 	private RentaService rentaService;
+	
+	@Autowired
+	private DepartamentoService departamentoService;
 
 	@RequestMapping(path = "/listar", method = RequestMethod.GET)
 	public ResponseEntity<List<ContratoDTO>> listar() {
@@ -49,7 +54,8 @@ public class ContratoController {
 		try {
 			Contrato contrato = service.registrar(contratoDto);
 			if (contrato != null) {
-				crearRentas(contrato);
+				DepartamentoDTO departamentoDto = departamentoService.obtener(contratoDto.getDepartamento().getIdDepartamento());
+				crearRentas(contrato, departamentoDto);
 				return new ResponseEntity<Void>(HttpStatus.CREATED);
 			} else {
 				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
@@ -79,7 +85,7 @@ public class ContratoController {
 		}
 	}
 
-	private void crearRentas(Contrato contrato) {
+	private void crearRentas(Contrato contrato, DepartamentoDTO departamentoDTO) {
 		RentaDTO rentaDto;
         Date fechaRenta = contrato.getFecha();
         Integer estadia = contrato.getEstadia();
@@ -94,6 +100,7 @@ public class ContratoController {
             rentaDto.setContrato(contrato);
             rentaDto.setFecha(fechaRenta);
             rentaDto.setEstado("Pendiente");
+            rentaDto.setMonto(departamentoDTO.getPrecio());
             
             rentaService.registrar(rentaDto);
         }

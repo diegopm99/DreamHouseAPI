@@ -15,8 +15,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.idat.APIDreamHouse.dto.UsuarioDTO;
+import com.idat.APIDreamHouse.model.Cliente;
 import com.idat.APIDreamHouse.model.Rol;
 import com.idat.APIDreamHouse.model.Usuario;
+import com.idat.APIDreamHouse.repository.ClienteRepository;
 import com.idat.APIDreamHouse.repository.UsuarioRepository;
 
 @Service
@@ -24,6 +26,9 @@ public class UserDetailService implements UserDetailsService {
 
 	@Autowired
 	private UsuarioRepository repository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -53,8 +58,8 @@ public class UserDetailService implements UserDetailsService {
                 .getAuthentication();
         UserDetails userDetail = (UserDetails) auth.getPrincipal();
         usuario = repository.findByCorreo(userDetail.getUsername());
+        Cliente cliente = clienteRepository.usuarioCliente(usuario.getIdUsuario());
         UsuarioDTO usuarioDto = new UsuarioDTO();
-        List<Rol> listaRoles = null;
         usuarioDto.setId(usuario.getIdUsuario());
 		usuarioDto.setNombres(usuario.getNombres());
 		usuarioDto.setApellidos(usuario.getApellidos());
@@ -62,12 +67,12 @@ public class UserDetailService implements UserDetailsService {
 		usuarioDto.setGenero(usuario.getGenero());
 		usuarioDto.setTelefono(usuario.getTelefono());
 		usuarioDto.setCorreo(usuario.getCorreo());
-		usuarioDto.setContrasenia(usuario.getContrasenia());
-		listaRoles = new ArrayList<>();
-		for (Rol rol : usuario.getRoles()) {
-			listaRoles.add(rol);
+		usuarioDto.setContrasenna(usuario.getContrasenia());
+		if(cliente != null) {
+			usuarioDto.setEscliente("1");
+		} else {
+			usuarioDto.setEscliente("0");
 		}
-		usuarioDto.setRoles(listaRoles);
         return usuarioDto;
     }
 	

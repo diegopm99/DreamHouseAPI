@@ -30,6 +30,7 @@ public class RentaServiceImpl implements RentaService {
 			rentaDto = new RentaDTO();
 			rentaDto.setId(renta.getIdRenta());
 			rentaDto.setFecha(renta.getFecha());
+			rentaDto.setMonto(renta.getMonto());
 			rentaDto.setEstado(renta.getEstado());
 			rentaDto.setFechaPago(renta.getFechaPago());
 			rentaDto.setContrato(renta.getContrato());
@@ -46,6 +47,7 @@ public class RentaServiceImpl implements RentaService {
 			rentaDto = new RentaDTO();
 			rentaDto.setId(renta.getIdRenta());
 			rentaDto.setFecha(renta.getFecha());
+			rentaDto.setMonto(renta.getMonto());
 			rentaDto.setEstado(renta.getEstado());
 			rentaDto.setFechaPago(renta.getFechaPago());
 			rentaDto.setContrato(renta.getContrato());
@@ -62,6 +64,7 @@ public class RentaServiceImpl implements RentaService {
 		renta.setEstado(rentaDto.getEstado());
 		renta.setFecha(rentaDto.getFecha());
 		renta.setFechaPago(rentaDto.getFechaPago());
+		renta.setMonto(rentaDto.getMonto());
 		repository.save(renta);
 	}
 
@@ -75,6 +78,7 @@ public class RentaServiceImpl implements RentaService {
 		renta.setEstado(rentaDto.getEstado());
 		renta.setFecha(rentaDto.getFecha());
 		renta.setFechaPago(rentaDto.getFechaPago());
+		renta.setMonto(rentaDto.getMonto());
 		repository.saveAndFlush(renta);
 	}
 
@@ -89,6 +93,23 @@ public class RentaServiceImpl implements RentaService {
 		renta.setFechaPago(new Date());
 		renta.setEstado("Pagado");
 		repository.saveAndFlush(renta);
+	}
+
+	@Override
+	public List<RentaDTO> listarPorCliente(Long id) {
+		List<RentaDTO> listadoDto = new ArrayList<>();
+		RentaDTO rentaDto;
+		for(Renta renta: repository.findByCliente(id)) {
+			rentaDto = new RentaDTO(
+					renta.getIdRenta(),
+					renta.getFecha(),
+					renta.getMonto(),
+					renta.getEstado(),
+					renta.getFechaPago()
+			);
+			listadoDto.add(rentaDto);
+		}
+		return listadoDto;
 	}
 	
 }

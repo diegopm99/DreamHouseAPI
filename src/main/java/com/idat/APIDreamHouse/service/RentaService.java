@@ -12,4 +12,5 @@ public interface RentaService {
 	public void actualizar(RentaDTO rentaDto);
 	public void eliminar(Long id);
 	public void pagarRenta(Long id);
+	public List<RentaDTO> listarPorCliente(Long id);
 }

@@ -14,4 +14,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	@Modifying
 	@Query(value="delete from Cliente c where c.idCliente = :id")
 	public void eliminarPorId(@Param("id") Long id);
+	
+	@Query(value="select c from Cliente c where c.usuario.idUsuario = :id")
+	public Cliente usuarioCliente(@Param("id") Long id);
 }

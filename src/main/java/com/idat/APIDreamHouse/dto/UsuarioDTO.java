@@ -1,13 +1,11 @@
 package com.idat.APIDreamHouse.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.idat.APIDreamHouse.model.Rol;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
 public class UsuarioDTO implements Serializable {
 
@@ -19,6 +17,35 @@ public class UsuarioDTO implements Serializable {
 	private String genero;
 	private String telefono;
 	private String correo;
-	private String contrasenia;
-	private List<Rol> roles = new ArrayList<>();
+	private String contrasenna;
+	private String escliente;
+	
+	public UsuarioDTO(Long id, String nombres, String apellidos, String dni, String genero, String telefono,
+			String correo, String contrasenna) {
+		super();
+		this.id = id;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.dni = dni;
+		this.genero = genero;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.contrasenna = contrasenna;
+	}
+
+	public UsuarioDTO(Long id, String nombres, String apellidos, String dni, String genero, String telefono,
+			String correo, String contrasenna, String escliente) {
+		super();
+		this.id = id;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.dni = dni;
+		this.genero = genero;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.contrasenna = contrasenna;
+		this.escliente = escliente;
+	}
+	
+	
 }

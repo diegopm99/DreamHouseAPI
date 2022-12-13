@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.idat.APIDreamHouse.dto.BasicResponse;
 import com.idat.APIDreamHouse.dto.UsuarioDTO;
 import com.idat.APIDreamHouse.service.UsuarioService;
 
@@ -43,12 +44,15 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(path = "/editar", method = RequestMethod.PUT)
-	public ResponseEntity<Void> editar(@RequestBody UsuarioDTO usuarioDto) {
+	public ResponseEntity<?> editar(@RequestBody UsuarioDTO usuarioDto) {
+		BasicResponse basicResponse;
 		if (service.obtener(usuarioDto.getId()) != null) {
 			service.actualizar(usuarioDto);
-			return new ResponseEntity<Void>(HttpStatus.OK);
+			basicResponse = new BasicResponse(true);
+			return new ResponseEntity<>(basicResponse, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+			basicResponse = new BasicResponse(false);
+			return new ResponseEntity<>(basicResponse, HttpStatus.NOT_FOUND);
 		}
 	}
 
