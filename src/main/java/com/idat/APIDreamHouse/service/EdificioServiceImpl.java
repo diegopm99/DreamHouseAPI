@@ -16,6 +16,8 @@ public class EdificioServiceImpl implements EdificioService {
 	@Autowired
 	private EdificioRepository repository;
 	
+	
+	private String RutaAbsoluta = "http://192.168.1.53:8090/api/imagesEdificio/";
 	@Override
 	public List<EdificioDTO> listar() {
 		List<EdificioDTO> listaDto = new ArrayList<>();
@@ -25,7 +27,12 @@ public class EdificioServiceImpl implements EdificioService {
 			edificioDto.setId(edificio.getIdEdificio());
 			edificioDto.setPisos(edificio.getPisos());
 			edificioDto.setDireccion(edificio.getDireccion());
-			edificioDto.setEstado(edificio.getEstado());
+			edificioDto.setImagen(RutaAbsoluta+edificio.getImagen());
+			if (edificioDto.getEstado()!= null) {
+				edificioDto.setEstado(edificio.getEstado());
+			}else {
+				edificio.setEstado(true);
+			}
 			listaDto.add(edificioDto);
 		}
 		return listaDto;

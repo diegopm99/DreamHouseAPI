@@ -50,10 +50,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers("/authenticate", 
 				"/usuario/registrar", 
-				"/departamento/listar", 
+				"/departamento/listar/**", 
 				"/departamento/obtener/**",
 				"/edificio/listar",
-				"/edificio/obtener/**").permitAll()
+				"/edificio/obtener/**",
+				"/imagesEdificio/**",
+				"/imagesDepartamento/**").permitAll()
 		.anyRequest()
 		.authenticated()
 		.and()

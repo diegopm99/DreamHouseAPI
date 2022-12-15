@@ -9,4 +9,5 @@ public class EdificioDTO {
 	private Integer pisos;
 	private String direccion;
 	private Boolean estado;
+	private String imagen;
 }

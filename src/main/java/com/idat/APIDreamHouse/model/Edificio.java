@@ -31,6 +31,8 @@ public class Edificio {
 	
 	private Boolean estado;
 
+	private String imagen;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL)
 	private List<Departamento> departamentos;

@@ -15,5 +15,6 @@ public class DepartamentoDTO {
 	private Double area;
 	private Double precio;
 	private Boolean estado;
-	private Edificio edificio;
+	private String imagen;
+	private String descripcion;
 }
