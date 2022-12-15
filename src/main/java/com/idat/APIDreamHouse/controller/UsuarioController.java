@@ -38,9 +38,9 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(path = "/registrar", method = RequestMethod.POST)
-	public ResponseEntity<Void> registrar(@RequestBody UsuarioDTO usuarioDto) {
+	public ResponseEntity<?> registrar(@RequestBody UsuarioDTO usuarioDto) {
 		service.registrar(usuarioDto);
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+		return new ResponseEntity<>(new BasicResponse(true), HttpStatus.CREATED);
 	}
 
 	@RequestMapping(path = "/editar", method = RequestMethod.PUT)

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.idat.APIDreamHouse.dto.BasicRequest;
+import com.idat.APIDreamHouse.dto.BasicResponse;
 import com.idat.APIDreamHouse.dto.RentaDTO;
 import com.idat.APIDreamHouse.service.RentaService;
 
@@ -27,9 +28,9 @@ public class RentaController {
 		return new ResponseEntity<List<RentaDTO>>(service.listar(), HttpStatus.OK);
 	}
 
-	@RequestMapping(path = "/obtener/{id}", method = RequestMethod.GET)
-	public ResponseEntity<RentaDTO> obtener(@PathVariable Long id) {
-		RentaDTO rentaDto = service.obtener(id);
+	@RequestMapping(path = "/obtener", method = RequestMethod.POST)
+	public ResponseEntity<RentaDTO> obtener(@RequestBody BasicRequest request) {
+		RentaDTO rentaDto = service.obtener(request.getId());
 		if (rentaDto != null) {
 			return new ResponseEntity<RentaDTO>(rentaDto, HttpStatus.OK);
 		} else {
@@ -48,13 +49,13 @@ public class RentaController {
 	}
 	
 	@RequestMapping(path = "/pagar", method = RequestMethod.POST)
-	public ResponseEntity<Void> pagarRenta(@RequestBody BasicRequest request) {
+	public ResponseEntity<?> pagarRenta(@RequestBody BasicRequest request) {
 		service.pagarRenta(request.getId());
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<>(new BasicResponse(true), HttpStatus.OK);
 	}
 	
-	@RequestMapping(path = "/rentas-cliente", method = RequestMethod.GET)
-	public ResponseEntity<List<RentaDTO>> rentasPorCliente(@RequestBody BasicRequest request) {
-		return new ResponseEntity<List<RentaDTO>>(service.listarPorCliente(request.getId()), HttpStatus.OK);
+	@RequestMapping(path = "/rentas-usuario", method = RequestMethod.POST)
+	public ResponseEntity<List<RentaDTO>> rentasPorUsuario(@RequestBody BasicRequest request) {
+		return new ResponseEntity<List<RentaDTO>>(service.listarPorUsuario(request.getId()), HttpStatus.OK);
 	}
 }

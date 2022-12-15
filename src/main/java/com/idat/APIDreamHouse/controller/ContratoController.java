@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.idat.APIDreamHouse.dto.ContratoDTO;
 import com.idat.APIDreamHouse.dto.DepartamentoDTO;
-import com.idat.APIDreamHouse.dto.RentaDTO;
 import com.idat.APIDreamHouse.model.Contrato;
+import com.idat.APIDreamHouse.model.Renta;
 import com.idat.APIDreamHouse.service.ContratoService;
 import com.idat.APIDreamHouse.service.DepartamentoService;
 import com.idat.APIDreamHouse.service.RentaService;
@@ -86,7 +86,6 @@ public class ContratoController {
 	}
 
 	private void crearRentas(Contrato contrato, DepartamentoDTO departamentoDTO) {
-		RentaDTO rentaDto;
         Date fechaRenta = contrato.getFecha();
         Integer estadia = contrato.getEstadia();
         Calendar c = Calendar.getInstance();
@@ -96,13 +95,13 @@ public class ContratoController {
             c.add(Calendar.MONTH, 1);
             fechaRenta = c.getTime();
             
-            rentaDto = new RentaDTO();
-            rentaDto.setContrato(contrato);
-            rentaDto.setFecha(fechaRenta);
-            rentaDto.setEstado("Pendiente");
-            rentaDto.setMonto(departamentoDTO.getPrecio());
+            Renta renta = new Renta();
+            renta.setContrato(contrato);
+            renta.setFecha(fechaRenta);
+            renta.setEstado("Pendiente");
+            renta.setMonto(departamentoDTO.getPrecio());
             
-            rentaService.registrar(rentaDto);
+            rentaService.registrar(renta);
         }
 	}
 }

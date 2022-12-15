@@ -38,10 +38,8 @@ public class Renta {
 	
 	private String estado;
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd-MM-yyyy")
 	@Column(name="fecha_pago")
-	private Date fechaPago;
+	private String fechaPago;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinColumn(
