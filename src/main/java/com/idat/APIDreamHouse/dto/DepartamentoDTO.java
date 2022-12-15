@@ -1,10 +1,10 @@
 package com.idat.APIDreamHouse.dto;
 
-import com.idat.APIDreamHouse.model.Edificio;
+import lombok.Getter;
+import lombok.Setter;
 
-import lombok.Data;
-
-@Data
+@Getter
+@Setter
 public class DepartamentoDTO {
 
 	private Long id;

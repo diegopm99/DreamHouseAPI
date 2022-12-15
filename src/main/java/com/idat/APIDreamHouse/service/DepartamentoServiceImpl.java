@@ -8,22 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.idat.APIDreamHouse.dto.DepartamentoDTO;
 import com.idat.APIDreamHouse.model.Departamento;
-import com.idat.APIDreamHouse.model.Edificio;
 import com.idat.APIDreamHouse.repository.DepartamentoRepository;
-import com.idat.APIDreamHouse.repository.EdificioRepository;
 
 @Service
 public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Autowired
 	private DepartamentoRepository departamentoRepository;
-	
-	@Autowired
-	private EdificioRepository edificioRepository;
 
+	private String RutaAbsoluta = "http://192.168.1.3:8090/api/imagesDepartamento/";
 
-	private String RutaAbsoluta = "http://192.168.1.53:8090/api/imagesDepartamento/";
-	
 	@Override
 	public List<DepartamentoDTO> listar() {
 		List<DepartamentoDTO> listadoDto = new ArrayList<>();

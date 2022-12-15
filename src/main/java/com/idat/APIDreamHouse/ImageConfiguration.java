@@ -10,8 +10,8 @@ public class ImageConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		WebMvcConfigurer.super.addResourceHandlers(registry);
-		registry.addResourceHandler("/imagesEdificio/**").addResourceLocations("file:/D:/Idat-Ciclo-6/Dream_HouseEC4/imagenesEdificio/");
-		registry.addResourceHandler("/imagesDepartamento/**").addResourceLocations("file:/D:/Idat-Ciclo-6/Dream_HouseEC4/imagenesDepartamento/");
+		registry.addResourceHandler("/imagesEdificio/**").addResourceLocations("file:/D:/images/imagesEdificio/");
+		registry.addResourceHandler("/imagesDepartamento/**").addResourceLocations("file:/D:/images/imagesDepartamento/");
 	}
 
 }

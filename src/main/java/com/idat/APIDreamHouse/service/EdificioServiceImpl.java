@@ -17,7 +17,7 @@ public class EdificioServiceImpl implements EdificioService {
 	private EdificioRepository repository;
 	
 	
-	private String RutaAbsoluta = "http://192.168.1.53:8090/api/imagesEdificio/";
+	private String RutaAbsoluta = "http://192.168.1.3:8090/api/imagesEdificio/";
 	@Override
 	public List<EdificioDTO> listar() {
 		List<EdificioDTO> listaDto = new ArrayList<>();
