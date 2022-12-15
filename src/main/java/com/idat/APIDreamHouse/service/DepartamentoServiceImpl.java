@@ -21,6 +21,9 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	@Autowired
 	private EdificioRepository edificioRepository;
 
+
+	private String RutaAbsoluta = "http://192.168.1.53:8090/api/imagesDepartamento/";
+	
 	@Override
 	public List<DepartamentoDTO> listar() {
 		List<DepartamentoDTO> listadoDto = new ArrayList<>();
@@ -28,7 +31,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		for (Departamento departamento : departamentoRepository.findAll()) {
 			departamentoDto = new DepartamentoDTO();
 			departamentoDto.setId(departamento.getIdDepartamento());
-			departamentoDto.setEdificio(departamento.getEdificio());
 			departamentoDto.setNumero(departamento.getNumero());
 			departamentoDto.setPiso(departamento.getPiso());
 			departamentoDto.setHabitaciones(departamento.getHabitaciones());
@@ -36,9 +38,34 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 			departamentoDto.setArea(departamento.getArea());
 			departamentoDto.setPrecio(departamento.getPrecio());
 			departamentoDto.setEstado(departamento.getEstado());
+			departamentoDto.setDescripcion(departamento.getDescripcion());
+			departamentoDto.setImagen(RutaAbsoluta+departamento.getImagen());
 			listadoDto.add(departamentoDto);
 		}
 		return listadoDto;
+	}
+	
+	@Override
+	public List<DepartamentoDTO> listarDepasporEdificio(Long id) {
+		List<DepartamentoDTO> listaDTOPorEdificio = new ArrayList<>();
+		DepartamentoDTO departamentoDto;
+		for (Departamento departamento : departamentoRepository.findAll()) {
+			if(departamento.getEdificio().getIdEdificio() == id) {
+				departamentoDto = new DepartamentoDTO();
+				departamentoDto.setId(departamento.getIdDepartamento());
+				departamentoDto.setNumero(departamento.getNumero());
+				departamentoDto.setPiso(departamento.getPiso());
+				departamentoDto.setHabitaciones(departamento.getHabitaciones());
+				departamentoDto.setBannos(departamento.getBannos());
+				departamentoDto.setArea(departamento.getArea());
+				departamentoDto.setPrecio(departamento.getPrecio());
+				departamentoDto.setEstado(departamento.getEstado());
+				departamentoDto.setDescripcion(departamento.getDescripcion());
+				departamentoDto.setImagen(RutaAbsoluta+departamento.getImagen());
+				listaDTOPorEdificio.add(departamentoDto);
+			}
+		}
+		return listaDTOPorEdificio;
 	}
 
 	@Override
@@ -48,13 +75,14 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		if (departamento != null) {
 			departamentoDto = new DepartamentoDTO();
 			departamentoDto.setId(departamento.getIdDepartamento());
-			departamentoDto.setEdificio(departamento.getEdificio());
 			departamentoDto.setNumero(departamento.getNumero());
 			departamentoDto.setPiso(departamento.getPiso());
 			departamentoDto.setHabitaciones(departamento.getHabitaciones());
 			departamentoDto.setBannos(departamento.getBannos());
 			departamentoDto.setArea(departamento.getArea());
 			departamentoDto.setPrecio(departamento.getPrecio());
+			departamentoDto.setDescripcion(departamento.getDescripcion());
+			departamentoDto.setImagen(RutaAbsoluta+departamento.getImagen());
 			departamentoDto.setEstado(departamento.getEstado());
 		}
 		return departamentoDto;
@@ -63,9 +91,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	@Override
 	public void registrar(DepartamentoDTO departamentoDto) {
 		Departamento departamento = new Departamento();
-		Edificio edificio = edificioRepository.findById(
-				departamentoDto.getEdificio().getIdEdificio()).orElse(null);
-		departamento.setEdificio(edificio);
 		departamento.setNumero(departamentoDto.getNumero());
 		departamento.setPiso(departamentoDto.getPiso());
 		departamento.setHabitaciones(departamentoDto.getHabitaciones());
@@ -79,10 +104,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	@Override
 	public void actualizar(DepartamentoDTO departamentoDto) {
 		Departamento departamento = new Departamento();
-		Edificio edificio = edificioRepository.findById(
-				departamentoDto.getEdificio().getIdEdificio()).orElse(null);
 		departamento.setIdDepartamento(departamentoDto.getId());
-		departamento.setEdificio(edificio);
 		departamento.setNumero(departamentoDto.getNumero());
 		departamento.setPiso(departamentoDto.getPiso());
 		departamento.setHabitaciones(departamentoDto.getHabitaciones());
@@ -97,5 +119,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	public void eliminar(Long id) {
 		departamentoRepository.deleteById(id);
 	}
+
+
 
 }

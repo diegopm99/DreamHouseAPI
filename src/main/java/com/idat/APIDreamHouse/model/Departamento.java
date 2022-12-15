@@ -36,10 +36,14 @@ public class Departamento {
 	
 	private Integer bannos;
 	
-	private Double area;
+	private Double area; 	
 	
 	private Double precio;
+
+	private String imagen;
 	
+	private String descripcion;
+
 	private Boolean estado;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})

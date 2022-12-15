@@ -26,8 +26,14 @@ public class DepartamentoController {
 		return new ResponseEntity<List<DepartamentoDTO>>(service.listar(), HttpStatus.OK);
 	}
 	
+	@RequestMapping(path = "/listar/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<DepartamentoDTO>> listarDepasPorEdificio(@PathVariable Long id) {
+		return new ResponseEntity<List<DepartamentoDTO>>(service.listarDepasporEdificio(id), HttpStatus.OK);
+	}
+	
 	@RequestMapping(path = "/obtener/{id}", method = RequestMethod.GET)
 	public ResponseEntity<DepartamentoDTO> obtener(@PathVariable Long id) {
+		System.out.println(id);
 		DepartamentoDTO departamentoDto = service.obtener(id);
 		if (departamentoDto != null) {
 			return new ResponseEntity<DepartamentoDTO>(departamentoDto, HttpStatus.OK);
